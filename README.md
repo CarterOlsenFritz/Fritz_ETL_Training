@@ -11,7 +11,7 @@ Well this repo is for CarterOlsenFritz to learn some Python.
 - I used bitbucket in the past to push and pull to/from development and production servers.
 - Using Github here and incorporating Stephen so we can both learn the basics and not be worthless in the eyes of other people with mythical "hard skills".
 
-# Bonus Goals, dawg.
+# Bonus Goals
 1. Web Scraping
 2. Some other nerd shit.
 3. Anything cool I can find utilizing Python to do home automation or something?

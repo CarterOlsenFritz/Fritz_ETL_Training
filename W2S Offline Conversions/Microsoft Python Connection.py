@@ -11,7 +11,7 @@ https://docs.microsoft.com/en-us/sql/connect/python/pymssql/step-1-configure-dev
 
 #import os #Not necessary right now?
 
-from Credentials import * # Grabbing the credentials from different python file. I am removing the Credentials.py from github for security purposes.
+from credentials_sql import * # Grabbing the credentials from different python file. I am removing the credentials_sql.py from github for security purposes.
 import pyodbc
 import datetime
 
