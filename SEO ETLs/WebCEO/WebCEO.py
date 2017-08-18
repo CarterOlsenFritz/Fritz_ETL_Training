@@ -25,47 +25,36 @@ projects = json.loads(response.read())[0]['data']
 for project in projects:
   print project['domain']
 """
-
 from credentials_webceo import *
 import urllib.request
+import urllib.parse
+import requests
 #import urllib2 # DNE in python3?
 import json
+import webbrowser
 
 # API command to get the list of projects added to a user's account in Web CEO
 
-command = {'key":'+api_key+',"method": "get_projects"'}
+url = "https://online.webceo.com/api/"
+#payload_showing_key = {'key':'API KEY GOES HERE', 'method': 'get_projects'} # This works only if I hardcode the API Key, and I'm not doing that shit.
+#print(payload_showing_key)
+#stringOfJsonData = json.dumps(payload_showing_key)
+#print(stringOfJsonData)
 
-# Trying to find a way around "Object of type 'set' is not JSON serializable"
-# https://stackoverflow.com/questions/9746303/how-do-i-send-a-post-request-as-a-json
-# https://stackoverflow.com/questions/8230315/python-sets-are-not-json-serializable
 
-class SetEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, set):
-            return list(obj)
-        return json.JSONEncoder.default(self, obj)
+payload_dict = {
+    'key': api_key2,
+    'method': 'get_projects'
+}
+print(payload_dict)
+payload = json.dumps(payload_dict)
+print(payload)
 
-# generate body of a POST request
-myurl = "https://online.webceo.com/api/"
-req = urllib.request.Request(myurl)
-req.add_header('Content-Type', 'application/json; charset=utf-8')
-jsondata = json.dumps(set(command), cls=SetEncoder)
-jsondataasbytes = jsondata.encode('utf-8')   # needs to be bytes
-req.add_header('Content-Length', len(jsondataasbytes))
-print (jsondataasbytes)
-response = urllib.request.urlopen(req, jsondataasbytes)
+r = requests.post(url, data=payload)
+print(r.text)
+#r = requests.get(url, params=payload)
 
-responsetext = response.read()
-text = responsetext.decode(encoding='utf-8',errors='ignore')
+#with open("requests_results.html","wb") as f:
+#    f.write(r.content)
+#webbrowser.open("results.html")
 
-print(text)
-
-#projects = json.load()
-"""
-# parse JSON response
-projects = json.loads(response.read())[0]['data']
-
-# print list of projects
-for project in projects:
-  print (project['domain'])
-"""
