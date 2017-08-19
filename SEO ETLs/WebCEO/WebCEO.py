@@ -32,6 +32,10 @@ import requests
 #import urllib2 # DNE in python3?
 import json
 import webbrowser
+import csv
+import sys
+
+
 
 # API command to get the list of projects added to a user's account in Web CEO
 
@@ -52,7 +56,16 @@ print(payload)
 
 r = requests.post(url, data=payload)
 print(r.text)
-#r = requests.get(url, params=payload)
+#r = requests.get(url, params=payload) # i duno what this does
+"""
+# This writes to a .json or .txt depending on how the file extension. Right now this is a .json file but filled with "r.text". I have no idea if this would be usable as a json. I think so since the text editor recognizes it.
+handle = open("test.json", "w")
+handle.write(r.text)
+handle.close()
+"""
+
+
+
 
 #with open("requests_results.html","wb") as f:
 #    f.write(r.content)
