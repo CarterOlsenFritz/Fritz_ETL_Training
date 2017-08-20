@@ -1,7 +1,5 @@
-# Example in Python 2.7 that prints a list of projects added to a Web CEO account:
-# I've gotta update this for Python3
-
 """
+# Example in Python 2.7 that prints a list of projects added to a Web CEO account:
 # Raw original  sample from https://online.webceo.com/help-center/api/examples.html
 import urllib
 import urllib2
