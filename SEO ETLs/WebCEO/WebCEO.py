@@ -101,8 +101,8 @@ json2_data = result_parsed[0]['data'] # A condensed form of the block directly a
 #print(json2_data)
 
 
-"""
-json_to_csv = open('json_data.csv', 'w') # open a file for writing
+
+json_to_csv = open('json_data.csv', 'w', newline='') # open a file for writing. newline='' is required to kill the line spacing generated in Windows machines.
 csvwriter = csv.writer(json_to_csv)# create the csv writer object
 count = 0 #start at 0
 
@@ -113,20 +113,41 @@ for data in json2_data:
              count += 1
       csvwriter.writerow(data.values())
 json_to_csv.close()
-#output = csv.DictWriter(open('json_data.csv','w'), delimiter=',', lineterminator='\n', fieldnames=['project', 'domain', 'name']) # trying to kill blank lines in csv.
+
 print("         bottom of file") # my place marker in console to make sure everything executed in new code additions.
-"""
+
 #############################################################
 #TODO: Learn how to write to a tsv.
 #############################################################
 """
 # Don't know if I can use any of this below here.
+json_to_tsv = open('output.tsv', 'w', newline='') # open a file for writing. newline='' is required to kill the line spacing generated in Windows machines.
+csvwriter = csv.writer(json_to_tsv)# create the csv writer object
+count = 0 #start at 0
+
+for data in json2_data:
+      if count == 0:
+             header = data.keys()
+             csvwriter.writerow(header)
+             count += 1
+      csvwriter.writerow(data.values())
+json_to_tsv.close()
+
 with open('output.tsv', 'w') as output_file:
-    dw = csv.DictWriter(output_file, sorted(result[0].keys()), delimiter='\t')
+    dw = csv.DictWriter(output_file, sorted(json2_data.keys()), delimiter='\t')
     dw.writeheader()
-    dw.writerows(result)
+    dw.writerows(json2_data)
+
+with open('output.tsv', 'w') as output_file:
+    dw = csv.DictWriter(output_file, sorted(json2_data), delimiter='\t')
+    dw.writeheader()
+    dw.writerows(json2_data)
+
+input_file = csv.DictReader(open("json_data.csv"))
+for row in input_file:
+    print(row)
 """
 
-#############################################################
+    #############################################################
 #TODO: Learn how to write JSON and csv data into SQL via SQLalchemy or some other option.
 #############################################################
