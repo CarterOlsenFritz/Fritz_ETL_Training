@@ -148,6 +148,9 @@ for row in input_file:
     print(row)
 """
 
-    #############################################################
+#############################################################
 #TODO: Learn how to write JSON and csv data into SQL via SQLalchemy or some other option.
+#############################################################
+#############################################################
+#TODO: Perform other WebCEO API pulls such as get_rankings, get_average_rankings, or others.
 #############################################################
