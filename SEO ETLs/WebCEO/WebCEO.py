@@ -85,6 +85,7 @@ result_parsed = json.loads(result.content)
 #print(json.dumps(result_parsed, indent=4)) # This is a test print of JSON data in a pretty format. It can only be written as "w", not "wb".
 
 """
+# Use me for printing.
 # Option 3 for printing to a file as a PRETTY JSON 
 with open("data3.json", "w") as f:
     f.write(json.dumps(result_parsed, indent=2))
@@ -154,3 +155,55 @@ for row in input_file:
 #############################################################
 #TODO: Perform other WebCEO API pulls such as get_rankings, get_average_rankings, or others.
 #############################################################
+
+"""
+from credentials_webceo import *
+import urllib.request
+import urllib.parse
+import requests
+#import urllib2 # DNE in python3?
+import json
+import webbrowser
+import csv
+import sys
+
+
+
+# Payload for 'get_rankings'
+# project_id is 1:1 with each domain name, a list of them are in the original query results.
+project_id = "ea6de9c0"
+payload_dict = {
+  'method': 'get_rankings',
+  'key': api_key2,
+  'data': {
+    'project': project_id,
+    'grouped': 0,
+    'competitors': 0,
+    'history_depth': 1
+  }
+}
+
+payload = json.dumps(payload_dict)
+url = "https://online.webceo.com/api/"
+result = requests.post(url, data=payload)
+result_parsed = json.loads(result.content)
+# Option 3 for printing to a file as a PRETTY JSON 
+with open("Kirkus_get_rankings.json", "w") as f:
+    f.write(json.dumps(result_parsed, indent=2))
+#shutil.move(src, dst, copy_function=copy2) # for if i want to move from this directory to one specifically for Kirkus.    
+# This pull falls apart right here. I think I need to flatten the json. Maybe look into PANDAS for forcing into tabular format. https://github.com/amirziai/flatten + PANDAS looks to be a winner.
+
+json2_data = result_parsed[0]['data'] # not sure if this will work since the resulting JSON isn't flat.
+json_to_csv = open('Kirkus_get_rankings.csv', 'w', newline='') # open a file for writing. newline='' is required to kill the line spacing generated in Windows machines.
+csvwriter = csv.writer(json_to_csv)# create the csv writer object
+count = 0 #start at 0
+
+for data in json2_data:
+      if count == 0:
+             header = data.keys()
+             csvwriter.writerow(header)
+             count += 1
+      csvwriter.writerow(data.values())
+json_to_csv.close()
+
+"""
